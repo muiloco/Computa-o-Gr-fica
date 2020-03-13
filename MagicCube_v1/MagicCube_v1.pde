@@ -2,8 +2,10 @@
 
 
 Projeto: Desenhar um cubo magico, colorido e com todos os lados;
-Nota de Versao: Desenho do cubo feito com animacao para girar o cubo
+Nota de Versao 1.0: Desenho do cubo feito com animacao para girar o cubo
 em todas as direcoes.
+Nota da Versão 1.1: Foi adicionado a função de zoom ao clicar os botões do
+mouse, sendo o LEFT para aumentar e o RIGHT para diminuir o tamanho do cubo. 
 */
 
 int v=3;
@@ -14,6 +16,8 @@ int m;
 int n;
 float sz = 240/v;
 float sze= sz*0.95;
+float zoom = 1;
+final static float inc = .05;
 
 int [][][]bloco = new int [v][w][cores];
 void setup(){
@@ -31,11 +35,19 @@ void setup(){
 }
 void draw(){
   background(100);
+  if(mousePressed){
+      if (mouseButton == LEFT) {
+        zoom += inc;
+      } else if (mouseButton == RIGHT) {
+        zoom -= inc;
+      }
+  }
   stroke(0);
   fill(255);
   translate(width/2,height/2);
   rotateX(-mouseY*PI/300);
   rotateY(-mouseX*PI/300);
+  scale(zoom);
   box(239);
   for(int l=0; l<v; l++){
   for(int m=0; m<w; m++){
